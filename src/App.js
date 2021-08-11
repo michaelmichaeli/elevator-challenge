@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./help.css";
+import "./main.css";
+import Building from "./components/Building";
+import { useCallback, useEffect, useState } from "react";
+import db from "./db.json";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [buildings, setBuildings] = useState([]);
+
+	const fetchData = useCallback(async () => {
+		let response = await db;
+		setBuildings(response);
+	}, []);
+
+	useEffect(() => {
+		fetchData();
+	}, [fetchData]);
+
+	if (!buildings || !buildings.length) return "Loading...";
+	else
+		return (
+			<div className="App">
+				<div className="street">
+					{buildings.map((building) => (
+						<Building
+							key={building.id}
+							floorsCount={building.floorsCount}
+							elevatorsCount={building.elevatorsCount}
+							elevatorSpeed={building.elevatorSpeed}
+							elevatorDelay={building.elevatorDelay}
+						/>
+					))}
+				</div>
+			</div>
+		);
 }
 
 export default App;
