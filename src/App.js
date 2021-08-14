@@ -16,7 +16,7 @@ function App() {
 		fetchData();
 	}, [fetchData]);
 
-	if (!buildings || !buildings.length) return "Loading...";
+	if (!buildings || !buildings.length) return <h1>"Loading..."</h1>
 	else
 		return (
 			<div className="App">

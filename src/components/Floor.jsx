@@ -1,15 +1,29 @@
-const Floor = ({ floorId, addToQueue, elevators }) => {
-    const isPressed = elevators.flat().findIndex(floor => floor === floorId) > -1
+import { useEffect } from "react"
+import useCountDown from "./hooks/useCountDown";
+
+const Floor = ({ floorIndex, addToQueue, elevatorsQueues, floorTime }) => {
+    const isPressed = elevatorsQueues.flat().findIndex(floor => floor === floorIndex) > -1
+
+    const [timeLeft, { start, pause, resume, reset }] = useCountDown(floorTime, 100);
+    useEffect(() => {
+        start(floorTime * 1000)
+    }, [floorTime])
+
     return <div className="floor floor-size">
         <div className="blackline"></div>
         <button
             className={`controller metal linear ${isPressed ? "active" : ""}`}
             onClick={() => {
-                addToQueue(floorId)
+                addToQueue(floorIndex)
             }}
         >
-            {floorId}
+            {floorIndex}
         </button>
+
+        {timeLeft && <p>{(timeLeft / 1000).toFixed(1)}</p>}
+        {/* {floorTime && <p>{floorTime.toFixed(2)}</p>} */}
+
+
     </div >
 }
 export default Floor
