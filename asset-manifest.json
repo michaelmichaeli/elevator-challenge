@@ -1,21 +1,25 @@
 {
   "files": {
-    "main.css": "/elevator-challenge/static/css/main.4c511072.chunk.css",
-    "main.js": "/elevator-challenge/static/js/main.4eebe56a.chunk.js",
-    "main.js.map": "/elevator-challenge/static/js/main.4eebe56a.chunk.js.map",
-    "runtime-main.js": "/elevator-challenge/static/js/runtime-main.667dcfce.js",
-    "runtime-main.js.map": "/elevator-challenge/static/js/runtime-main.667dcfce.js.map",
-    "static/js/2.82b5e96a.chunk.js": "/elevator-challenge/static/js/2.82b5e96a.chunk.js",
-    "static/js/2.82b5e96a.chunk.js.map": "/elevator-challenge/static/js/2.82b5e96a.chunk.js.map",
+    "main.css": "/elevator-challenge/static/css/main.297220fc.chunk.css",
+    "main.js": "/elevator-challenge/static/js/main.b4fdb63b.chunk.js",
+    "main.js.map": "/elevator-challenge/static/js/main.b4fdb63b.chunk.js.map",
+    "runtime-main.js": "/elevator-challenge/static/js/runtime-main.4af6d0ea.js",
+    "runtime-main.js.map": "/elevator-challenge/static/js/runtime-main.4af6d0ea.js.map",
+    "static/js/2.36a919ad.chunk.js": "/elevator-challenge/static/js/2.36a919ad.chunk.js",
+    "static/js/2.36a919ad.chunk.js.map": "/elevator-challenge/static/js/2.36a919ad.chunk.js.map",
+    "static/js/3.1eef2efe.chunk.js": "/elevator-challenge/static/js/3.1eef2efe.chunk.js",
+    "static/js/3.1eef2efe.chunk.js.map": "/elevator-challenge/static/js/3.1eef2efe.chunk.js.map",
     "index.html": "/elevator-challenge/index.html",
-    "static/css/main.4c511072.chunk.css.map": "/elevator-challenge/static/css/main.4c511072.chunk.css.map",
-    "static/js/2.82b5e96a.chunk.js.LICENSE.txt": "/elevator-challenge/static/js/2.82b5e96a.chunk.js.LICENSE.txt",
+    "static/css/main.297220fc.chunk.css.map": "/elevator-challenge/static/css/main.297220fc.chunk.css.map",
+    "static/js/2.36a919ad.chunk.js.LICENSE.txt": "/elevator-challenge/static/js/2.36a919ad.chunk.js.LICENSE.txt",
+    "static/js/3.1eef2efe.chunk.js.LICENSE.txt": "/elevator-challenge/static/js/3.1eef2efe.chunk.js.LICENSE.txt",
+    "static/media/ding.d2cf02a6.mp3": "/elevator-challenge/static/media/ding.d2cf02a6.mp3",
     "static/media/elv.57cf1df4.png": "/elevator-challenge/static/media/elv.57cf1df4.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.667dcfce.js",
-    "static/js/2.82b5e96a.chunk.js",
-    "static/css/main.4c511072.chunk.css",
-    "static/js/main.4eebe56a.chunk.js"
+    "static/js/runtime-main.4af6d0ea.js",
+    "static/js/2.36a919ad.chunk.js",
+    "static/css/main.297220fc.chunk.css",
+    "static/js/main.b4fdb63b.chunk.js"
   ]
 }
