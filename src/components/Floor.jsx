@@ -26,7 +26,7 @@ const Floor = ({
             {floorIndex}
         </button>
 
-        {timeLeft && <p>{(timeLeft / 1000).toFixed(1)}</p>}
+        {!!timeLeft && <p>{(timeLeft / 1000).toFixed(1)}</p>}
 
     </div >
 }
