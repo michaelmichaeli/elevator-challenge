@@ -1,6 +1,5 @@
 [
-	{ "id": 1, "floorsCount": 26, "elevatorsCount": 5, "elevatorDelay": 2, "elevatorSpeed": 3 },
-	{ "id": 2, "floorsCount": 21, "elevatorsCount": 3, "elevatorDelay": 1, "elevatorSpeed": 2 },
-	{ "id": 3, "floorsCount": 16, "elevatorsCount": 2, "elevatorDelay": 3, "elevatorSpeed": 1 },
-	{ "id": 4, "floorsCount": 11, "elevatorsCount": 1, "elevatorDelay": 2, "elevatorSpeed": 2 }
+	{ "id": 1, "floorsCount": 21, "elevatorsCount": 4, "elevatorDelay": 3, "elevatorSpeed": 3 },
+	{ "id": 2, "floorsCount": 16, "elevatorsCount": 3, "elevatorDelay": 2, "elevatorSpeed": 3 },
+	{ "id": 3, "floorsCount": 11, "elevatorsCount": 2, "elevatorDelay": 2, "elevatorSpeed": 2 }
 ]

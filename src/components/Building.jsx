@@ -1,35 +1,39 @@
-import { useEffect, useState } from 'react'
-import Elevator from './Elevator'
-import Floor from './Floor'
+import { useState } from 'react'
+import ElevatorList from './ElevatorList'
+import FloorList from './FloorList'
 
-const Building = ({ floorsCount, elevatorsCount, elevatorDelay, elevatorSpeed }) => {
+const Building = ({
+    floorsCount,
+    elevatorsCount,
+    elevatorDelay,
+    elevatorSpeed }) => {
+    
     const floors = [...Array(floorsCount).fill(null)]
     const [elevatorsQueues, setElevatorsQueues] = useState(Array.from(Array(elevatorsCount), () => new Array(0)))
     const [elevatorsLocations, setElevatorsLocations] = useState([...Array(elevatorsCount).fill(0)])
     const [floorsTimes, setFloorsTimes] = useState([...Array(floorsCount).fill(null)])
+    const [canUpdate, setCanUpdate] = useState(true)
+    
+    // useEffect(() => {
+    //     console.log('elevatorsQueues:', elevatorsQueues);
+    //     console.log('elevatorsLocations:', elevatorsLocations);
+    // }, [elevatorsQueues, elevatorsLocations])
 
-    useEffect(() => {
-        // console.log('elevatorsQueues:', elevatorsQueues);
-        // console.log('elevatorsLocations:', elevatorsLocations);
-    }, [elevatorsQueues, elevatorsLocations])
-
-    // Adding to queue after choose the correct elevator to add floorIndex to its correct queue
+    // Adding floorIndex to elevator-queue after choosing the correct elevator
     const addToQueue = (floorIndex) => {
         // If floor already in one of the queues -> do nothing
         if (elevatorsQueues.flat().findIndex(floor => floor === floorIndex) > -1) return
+        // If elevator is already in this floor -> do nothing
+        if (elevatorsLocations.flat().findIndex(floor => floor === floorIndex) > -1) return
 
         const correctElevatorIndex = getCorrectElevatorIndex(floorIndex)
 
-
-        // Update state
         const queuesCopy = [...elevatorsQueues]
         queuesCopy[correctElevatorIndex].push(floorIndex)
         setElevatorsQueues(queuesCopy)
 
-
         updateFloorTimeStart(floorIndex, correctElevatorIndex)
     }
-
 
     const updateFloorTimeStart = (floorIndex, elevatorIndex) => {
         const time = getFloorsTimes(floorIndex, elevatorIndex)
@@ -79,27 +83,17 @@ const Building = ({ floorsCount, elevatorsCount, elevatorDelay, elevatorSpeed })
         // If elevator queue is empty -> do nothing
         if (!elevatorsQueues[elevatorIndex].length) return
 
+        // Update state
         const locationCopy = [...elevatorsLocations]
         locationCopy[elevatorIndex] = elevatorsQueues[elevatorIndex][0]
-
-        // Update state
-        // copy[elevatorIndex] = location
         setElevatorsLocations(locationCopy)
     }
 
-
     const getCorrectElevatorIndex = (floorIndex) => {
         const elevatorsTimes = [...Array(elevatorsCount).fill(Infinity)]
-        // const hypotheticalQueues = [...elevatorsQueues]
         elevatorsQueues.forEach((queue, elevatorIndex) => {
-            // queue.push(floorIndex)
             queue = [...queue, floorIndex]
-            // console.log('ququ', queue);
-            // const time = getFloorsTimes(floorIndex, i)
-            // const floorInQueueIndex = elevatorsQueues[elevatorIndex].findIndex(curr => curr === floorIndex)
-            // if (floorInQueueIndex === -1) return
-            // const myQueue = elevatorsQueues[elevatorIndex].slice(0, floorInQueueIndex + 1)
-
+           
             let sumOfFloorsToTravel = 0
 
             if (queue.length > 1) {
@@ -115,27 +109,10 @@ const Building = ({ floorsCount, elevatorsCount, elevatorDelay, elevatorSpeed })
             const travelTime = (sumOfFloorsToTravel / elevatorSpeed)
             const delayTime = (elevatorDelay * (queue.length - 1))  // - 2 ?
             const time = travelTime + delayTime
-            // let time
-            // if (!queue.length) {
-            //     time = Math.abs(floorIndex - elevatorsLocations[i]) / elevatorSpeed
-            // }
-            // else {
-            //     const sumOfFloorsToTravel = queue.reduce((acc, floor, i, queue) => {
-            //         acc = (i > 0)
-            //             ? acc + Math.abs(queue[i] - queue[i - 1])
-            //             : acc + 0
-            //         return acc
-            //     })
-            //     time = (sumOfFloorsToTravel / elevatorSpeed)
-            //         + (elevatorDelay * (queue.length))
-            //         + (Math.abs(floorIndex - queue[queue.length - 1]) / elevatorSpeed)
-            // }
+           
             elevatorsTimes[elevatorIndex] = time
         })
-        // console.log('hypotheticalQueues',hypotheticalQueues);
-        // console.log('elevatorsQueues', elevatorsQueues);
 
-        // console.log('elevatorsTimes', elevatorsTimes);
         return elevatorsTimes.indexOf(Math.min(...elevatorsTimes));
     }
 
@@ -145,42 +122,23 @@ const Building = ({ floorsCount, elevatorsCount, elevatorDelay, elevatorSpeed })
             <h1>Delay: {elevatorDelay} seconds</h1>
         </header>
         <div className="building">
-            <div className="floors">
-                {floors.map((floor, i, floors) => (
-                    <div
-                        className="floor" key={i}>
-                        <Floor
-                            addToQueue={addToQueue}
-                            floorIndex={i}
-                            elevatorsQueues={elevatorsQueues}
-                            elevatorSpeed={elevatorSpeed}
-                            elevatorDelay={elevatorDelay}
-                            floorTime={floorsTimes[i]}
-                        />
-                    </div>)
-                )}
-            </div>
-            <div className="shafts">
-                {elevatorsQueues.map((elevatorQueue, i) => (
-                    <div
-                        style={{ "height": 110 * floorsCount + 8 + "px" }}
-                        className="shaft"
-                        key={i}
-                    >
-                        <Elevator
-                            elevatorIndex={i}
-                            elevatorsQueues={elevatorsQueues}
-                            // elevatorQueue={elevatorQueue}
-                            elevatorSpeed={elevatorSpeed}
-                            elevatorDelay={elevatorDelay}
-                            elevatorLocation={elevatorsLocations[i]}
-                            removeFromQueue={removeFromQueue}
-                            updateElevatorLocation={updateElevatorLocation}
-                        />
-                    </div>
-                ))}
-            </div>
-
+            <FloorList
+                floors={floors}
+                addToQueue={addToQueue}
+                canUpdate={canUpdate}
+                elevatorsQueues={elevatorsQueues}
+                floorTimes={floorsTimes}
+            />
+           <ElevatorList 
+                setCanUpdate={setCanUpdate}
+                elevatorsQueues={elevatorsQueues}
+                elevatorSpeed={elevatorSpeed}
+                elevatorDelay={elevatorDelay}
+                elevatorsLocations={elevatorsLocations}
+                removeFromQueue={removeFromQueue}
+                updateElevatorLocation={updateElevatorLocation}
+                floorsCount={floorsCount}
+            />
         </div>
     </section>
 }
